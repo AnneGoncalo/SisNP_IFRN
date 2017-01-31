@@ -41,6 +41,7 @@ public class DAMeta {
                     meta.setTitulo(rsGetMetas.getString("titulo"));
                     meta.setAndamento(rsGetMetas.getDouble("andamento"));
                     meta.setDataAlvo(rsGetMetas.getDate("data_alvo"));
+                    
                     metas.add(meta);
                 }
                 psGetMetas.close();

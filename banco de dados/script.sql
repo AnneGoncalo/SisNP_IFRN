@@ -58,17 +58,22 @@ CREATE TABLE usuario (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table noticia;
 CREATE TABLE noticia (
 	id int(11) NOT NULL AUTO_INCREMENT,
     titulo varchar(45) NOT NULL,
     texto varchar(450) NOT NULL,
     dataPublicacao date NULL,
     id_usuario int,
+    id_projeto int,
     PRIMARY KEY (id),
-	KEY fk_usuario (id_usuario),
-	CONSTRAINT fk_usario FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+	KEY fk_usuario_noticia (id_usuario),
+    KEY fk_projeto_noticia (id_projeto),
+	CONSTRAINT fk_usario_noticia FOREIGN KEY (id_usuario) REFERENCES usuario (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_projeto_noticia FOREIGN KEY (id_projeto) REFERENCES projeto (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table atividade;
 CREATE TABLE atividade(
 	id int(11) NOT NULL AUTO_INCREMENT,
     descricao varchar(450) NOT NULL,
@@ -77,11 +82,14 @@ CREATE TABLE atividade(
     estado int(11) NULL,
     id_autor int,
     id_responsavel int,
+    id_meta int,
     PRIMARY KEY (id),
 	KEY fk_usuario_autor (id_autor),
     KEY fk_usuario_responsavel (id_responsavel),
+    KEY fk_meta_atividade (id_meta),
 	CONSTRAINT fk_usuario_autor FOREIGN KEY (id_autor) REFERENCES usuario (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_usuario_responsavel FOREIGN KEY (id_responsavel) REFERENCES usuario (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_usuario_responsavel FOREIGN KEY (id_responsavel) REFERENCES usuario (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_meta_atividade FOREIGN KEY (id_meta) REFERENCES meta (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE meta(
@@ -112,3 +120,19 @@ insert into docente(id, siape) values(1, "20151014040002");
 insert into projeto(projeto.titulo, projeto.descricao, projeto.id_coordenador) 
 	values ("Projeto Teste", "Teste de um projeto", 1);
 insert into docente_projeto(id_docente, id_projeto) values(1, 1);
+
+select * from meta;
+select * from noticia;
+
+INSERT INTO `sisnp`.`meta` (`titulo`,`id_projeto`) VALUES ('Meta 1', 1);
+
+INSERT INTO `sisnp`.`atividade`
+(`descricao`, `id_autor`, `id_responsavel`, id_meta)
+VALUES
+('Descrição da Atividade 1', 1, 1, 1);
+
+INSERT INTO `sisnp`.`atividade`
+(`descricao`, `id_autor`, `id_responsavel`, id_meta)
+VALUES
+('Descrição da Atividade 2', 1, 1, 1);
+

@@ -50,6 +50,7 @@ public class DANoticia {
                 Logger.getLogger(DANoticia.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("conn eh null");
         return null;
     }
 }
