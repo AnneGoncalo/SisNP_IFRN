@@ -10,11 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sisnp.ifrn.br.dominio.Noticia;
+import sisnp.ifrn.br.dominio.Usuario;
 
 /**
  *
@@ -33,7 +33,9 @@ public class DANoticia {
         if (conn != null) {
             try {
                 List<Noticia> noticias = new ArrayList();
-                PreparedStatement psGetNoticias = conn.prepareStatement("SELECT * FROM noticia WHERE id_projeto = ?");
+                PreparedStatement psGetNoticias = conn.prepareStatement("select * from noticia " +
+                                "inner join usuario as autor on autor.id = noticia.id_usuario " + 
+                                "WHERE id_projeto = ?");
                 psGetNoticias.setInt(1, idProjeto);
                 ResultSet rsGetNoticias = psGetNoticias.executeQuery();
                 while (rsGetNoticias.next()) {
@@ -42,6 +44,16 @@ public class DANoticia {
                     noticia.setTitulo(rsGetNoticias.getString("titulo"));
                     noticia.setTexto(rsGetNoticias.getString("texto"));
                     noticia.setData(rsGetNoticias.getDate("dataPublicacao"));
+                    
+                    Usuario autor = new Usuario();
+                    autor.setId(rsGetNoticias.getInt("autor.id"));
+                    autor.setNome(rsGetNoticias.getString("autor.nome"));
+                    autor.setLogin(rsGetNoticias.getString("autor.login"));
+                    autor.setSenha(rsGetNoticias.getString("autor.senha"));
+                    autor.setAtivo(rsGetNoticias.getBoolean("autor.ativo"));
+                    
+                    noticia.setAutor(autor);
+                    
                     noticias.add(noticia);
                 }
                 psGetNoticias.close();

@@ -5,7 +5,7 @@
  */
 package sisnp.ifrn.br.dominio;
 
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.util.Calendar;
 public class Atividade {
     private int id;
     private String descricao;
-    private Calendar inicio;
+    private Date inicio;
     private int duracaoEstimada;
     private int estado;
     private Usuario autor;
@@ -39,11 +39,11 @@ public class Atividade {
         this.descricao = descricao;
     }
 
-    public Calendar getInicio() {
+    public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(Calendar inicio) {
+    public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
 

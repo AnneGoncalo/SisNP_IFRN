@@ -14,7 +14,8 @@
         <title>Projeto</title>
     </head>
     <body>
-        <h1>Visão Geral de Projeto <%= projeto.getTitulo()%></h1>
+        <h1> <%= projeto.getTitulo()%></h1>
+        <hr/>
         <h3>Descrição</h3>
         <p><%= projeto.getDescricao()%></p>
 
@@ -41,6 +42,11 @@
                 <ol>
                     <% for (Atividade a : m.getAtividades()) { %>
                     <li> <%= a.getDescricao() %> </li>
+                    <p>Inicio: <%= a.getInicio() %> </p>
+                    <p>Duração estimada: <%= a.getDuracaoEstimada() %> </p>
+                    <p>Situação: <%= a.getEstado() %> </p>
+                    <p>Autor: <%= a.getAutor().getNome() %> </p>
+                    <p>Responsavel: <%= a.getResponsavel().getNome() %> </p>
                     <% } %>
                 </ol>
             </li>
@@ -54,9 +60,10 @@
             <%
                 for (Noticia n : projeto.getNoticias()) {
             %>
-            <li>
-                <%= n.getTitulo()%>
-            </li>
+            <li> <%= n.getTitulo()%> </li>
+            <p> Por: <%= n.getAutor().getNome() %> </p>
+            <p> Em: <%= n.getData() %> </p>
+            <p> <%= n.getTexto() %> </p>
             <%
                 }
             %>
