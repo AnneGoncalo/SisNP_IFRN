@@ -18,11 +18,11 @@ public class Mediator {
     private DAMeta daMeta = null;
     private DAAtividade daAtividade = null;
     
-    public static Mediator instance = null;
+    private static Mediator instance = null;
     
     private Mediator(){}
     
-    public Mediator getInstance()
+    public static Mediator getInstance()
     {
         if(instance == null)
         {

@@ -17,7 +17,7 @@ public class BLProjeto {
         super();
     }
     
-    public Projeto getProjeto(int idProjeto) { 
+    public Projeto getProjeto(int idProjeto) throws SQLException { 
         return this.projetoFacade.run(idProjeto);
     }
 }

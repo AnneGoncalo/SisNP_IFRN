@@ -25,13 +25,13 @@ public class ProjetoFacade {
     
     public Projeto run(int idProjeto) throws SQLException
     {
-        Projeto projeto = Mediator.instance.getDaProjeto().getProjeto(idProjeto);
-        projeto.setEquipe(Mediator.instance.getDaUsuario().getEquipe(idProjeto));
-        projeto.setNoticias(Mediator.instance.getDaNoticia().getNoticias(idProjeto));
-        projeto.setMetas(Mediator.instance.getDaMeta().getMetas(idProjeto));
+        Projeto projeto = Mediator.getInstance().getDaProjeto().getProjeto(idProjeto);
+        projeto.setEquipe(Mediator.getInstance().getDaUsuario().getEquipe(idProjeto));
+        projeto.setNoticias(Mediator.getInstance().getDaNoticia().getNoticias(idProjeto));
+        projeto.setMetas(Mediator.getInstance().getDaMeta().getMetas(idProjeto));
         for(Meta m: projeto.getMetas())
         {
-            m.setAtividades(Mediator.instance.getDaAtividade().getAtividades(m.getId()));
+            m.setAtividades(Mediator.getInstance().getDaAtividade().getAtividades(m.getId()));
         }
         return projeto;
     }
