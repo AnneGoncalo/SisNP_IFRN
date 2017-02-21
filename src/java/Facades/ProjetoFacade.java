@@ -13,39 +13,26 @@ import sisnp.ifrn.br.persistencia.DANoticia;
 import sisnp.ifrn.br.persistencia.DAProjeto;
 import sisnp.ifrn.br.persistencia.DAUsuario;
 import sisnp.ifrn.br.dominio.Projeto;
+import sisnp.ifrn.br.persistencia.Mediator;
 
 /**
  *
  * @author jeanjar
  */
 public class ProjetoFacade {
+   
+    public ProjetoFacade(){}
     
-    private DAProjeto dataAccess = null;
-    private DAUsuario dataAccessUsuario = null;
-    private DANoticia daNoticia = null;
-    private DAMeta daMeta = null;
-    private DAAtividade daAtividade = null;
-        
-    public ProjetoFacade() throws SQLException{
-        dataAccess = new DAProjeto();
-        dataAccessUsuario = new DAUsuario();
-        daNoticia = new DANoticia();
-        daMeta = new DAMeta();
-        daAtividade = new DAAtividade();
-    }
-    
-    public Projeto run(int idProjeto)
+    public Projeto run(int idProjeto) throws SQLException
     {
-        Projeto projeto = dataAccess.getProjeto(idProjeto);
-        projeto.setEquipe(dataAccessUsuario.getEquipe(idProjeto));
-        projeto.setNoticias(daNoticia.getNoticias(idProjeto));
-        projeto.setMetas(daMeta.getMetas(idProjeto));
+        Projeto projeto = Mediator.instance.getDaProjeto().getProjeto(idProjeto);
+        projeto.setEquipe(Mediator.instance.getDaUsuario().getEquipe(idProjeto));
+        projeto.setNoticias(Mediator.instance.getDaNoticia().getNoticias(idProjeto));
+        projeto.setMetas(Mediator.instance.getDaMeta().getMetas(idProjeto));
         for(Meta m: projeto.getMetas())
         {
-            m.setAtividades(daAtividade.getAtividades(m.getId()));
+            m.setAtividades(Mediator.instance.getDaAtividade().getAtividades(m.getId()));
         }
         return projeto;
     }
-    
-    
 }
