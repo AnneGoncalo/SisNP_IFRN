@@ -2,13 +2,7 @@ package sisnp.ifrn.br.negocio;
 
 import Facades.ProjetoFacade;
 import java.sql.SQLException;
-import sisnp.ifrn.br.dominio.Meta;
 import sisnp.ifrn.br.dominio.Projeto;
-import sisnp.ifrn.br.persistencia.DAAtividade;
-import sisnp.ifrn.br.persistencia.DAMeta;
-import sisnp.ifrn.br.persistencia.DANoticia;
-import sisnp.ifrn.br.persistencia.DAProjeto;
-import sisnp.ifrn.br.persistencia.DAUsuario;
 
 public class BLProjeto {
     ProjetoFacade projetoFacade = new ProjetoFacade();
@@ -18,6 +12,13 @@ public class BLProjeto {
     }
     
     public Projeto getProjeto(int idProjeto) throws SQLException { 
-        return this.projetoFacade.run(idProjeto);
+        return this.projetoFacade.get(idProjeto);
+    }
+    
+    public void addProjeto(Projeto projeto) throws SQLException{
+        //Possiveis verificações
+        
+        projeto.setConcluido(false);
+        projetoFacade.add(projeto);
     }
 }

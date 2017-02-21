@@ -23,7 +23,7 @@ public class ProjetoFacade {
    
     public ProjetoFacade(){}
     
-    public Projeto run(int idProjeto) throws SQLException
+    public Projeto get(int idProjeto) throws SQLException
     {
         Projeto projeto = Mediator.getInstance().getDaProjeto().getProjeto(idProjeto);
         projeto.setEquipe(Mediator.getInstance().getDaUsuario().getEquipe(idProjeto));
@@ -34,5 +34,9 @@ public class ProjetoFacade {
             m.setAtividades(Mediator.getInstance().getDaAtividade().getAtividades(m.getId()));
         }
         return projeto;
+    }
+    
+    public void add(Projeto projeto) throws SQLException{
+        Mediator.getInstance().getDaProjeto().cadastrarProjeto(projeto);
     }
 }

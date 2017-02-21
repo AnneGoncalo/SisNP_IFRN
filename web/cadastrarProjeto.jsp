@@ -13,10 +13,10 @@
     </head>
     <body>
         <h1>Cadastrar Projeto</h1>
-        <form method="POST" action="">
+        <form method="POST" action="CadastrarProjeto">
             Titulo: <input type="text" name="titulo" />
             Descrição: <input type="text" name="descricao"/>
-            <input type="submit" name="Salvar"/>
+            <input type="submit" value="Salvar"/>
         </form>
     </body>
 </html>

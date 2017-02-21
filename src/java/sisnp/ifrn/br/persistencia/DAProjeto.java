@@ -41,7 +41,7 @@ public class DAProjeto {
     public void cadastrarProjeto(Projeto projeto) {
         if (conn != null) {
             PreparedStatement psGetProjeto = null;
-            String sql = "insert into Projeto(titulo, descricao, concluido, id_coordenador)" +
+            String sql = "insert into projeto(titulo, descricao, concluido, id_coordenador) " +
                 "values(?, ?, ?, ?)";
             try {
                 psGetProjeto = conn.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class DAProjeto {
                 psGetProjeto.setString(2, projeto.getDescricao());
                 psGetProjeto.setBoolean(3, projeto.isConcluido());
                 psGetProjeto.setInt(4, projeto.getCoordenador().getId());
-                psGetProjeto.executeQuery();
+                psGetProjeto.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(DAProjeto.class.getName()).log(Level.SEVERE, null, ex);
             }
