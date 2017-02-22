@@ -19,6 +19,7 @@
     <body>
         <h1>Projetos</h1>
         <hr>
+        <p><a href="cadastrarProjeto.jsp">Novo</a></p>
         <ol>
             <% for (Projeto p : projetos) {%>
             <li><a href="projeto?idProjeto=<%= p.getId()%>"><%= p.getTitulo()%></a></li>

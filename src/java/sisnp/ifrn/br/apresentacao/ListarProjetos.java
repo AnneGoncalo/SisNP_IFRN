@@ -8,6 +8,7 @@ package sisnp.ifrn.br.apresentacao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -38,8 +39,8 @@ public class ListarProjetos extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         BLProjeto bl = new BLProjeto();
-        //List<Projeto> projetos = bl.getProjetos();
-        //request.setAttribute("projetos", projetos);
+        List<Projeto> projetos = bl.getProjetos();
+        request.setAttribute("projetos", projetos);
         request.getRequestDispatcher("/viewProjetos.jsp").forward(request, response);
         return;
     }

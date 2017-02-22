@@ -6,6 +6,7 @@
 package Facades;
 
 import java.sql.SQLException;
+import java.util.List;
 import sisnp.ifrn.br.dominio.Meta;
 import sisnp.ifrn.br.persistencia.DAAtividade;
 import sisnp.ifrn.br.persistencia.DAMeta;
@@ -20,23 +21,36 @@ import sisnp.ifrn.br.persistencia.Mediator;
  * @author jeanjar
  */
 public class ProjetoFacade {
-   
-    public ProjetoFacade(){}
-    
-    public Projeto get(int idProjeto) throws SQLException
-    {
+
+    public ProjetoFacade() {
+    }
+
+    public Projeto get(int idProjeto) throws SQLException {
         Projeto projeto = Mediator.getInstance().getDaProjeto().getProjeto(idProjeto);
         projeto.setEquipe(Mediator.getInstance().getDaUsuario().getEquipe(idProjeto));
         projeto.setNoticias(Mediator.getInstance().getDaNoticia().getNoticias(idProjeto));
         projeto.setMetas(Mediator.getInstance().getDaMeta().getMetas(idProjeto));
-        for(Meta m: projeto.getMetas())
-        {
+        for (Meta m : projeto.getMetas()) {
             m.setAtividades(Mediator.getInstance().getDaAtividade().getAtividades(m.getId()));
         }
         return projeto;
     }
-    
-    public void add(Projeto projeto) throws SQLException{
+
+    public List<Projeto> gets() throws SQLException {
+        List<Projeto> projetos = Mediator.getInstance().getDaProjeto().getProjetos();
+        for (Projeto projeto : projetos) {
+            int idProjeto = projeto.getId();
+            projeto.setEquipe(Mediator.getInstance().getDaUsuario().getEquipe(idProjeto));
+            projeto.setNoticias(Mediator.getInstance().getDaNoticia().getNoticias(idProjeto));
+            projeto.setMetas(Mediator.getInstance().getDaMeta().getMetas(idProjeto));
+            for (Meta m : projeto.getMetas()) {
+                m.setAtividades(Mediator.getInstance().getDaAtividade().getAtividades(m.getId()));
+            }
+        }
+        return projetos;
+    }
+
+    public void add(Projeto projeto) throws SQLException {
         Mediator.getInstance().getDaProjeto().cadastrarProjeto(projeto);
     }
 }

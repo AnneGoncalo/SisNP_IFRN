@@ -2,6 +2,7 @@ package sisnp.ifrn.br.negocio;
 
 import Facades.ProjetoFacade;
 import java.sql.SQLException;
+import java.util.List;
 import sisnp.ifrn.br.dominio.Projeto;
 
 public class BLProjeto {
@@ -13,6 +14,10 @@ public class BLProjeto {
     
     public Projeto getProjeto(int idProjeto) throws SQLException { 
         return this.projetoFacade.get(idProjeto);
+    }
+    
+    public List<Projeto> getProjetos() throws SQLException{
+        return this.projetoFacade.gets();
     }
     
     public void addProjeto(Projeto projeto) throws SQLException{

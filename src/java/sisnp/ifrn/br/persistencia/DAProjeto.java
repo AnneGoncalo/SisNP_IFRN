@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sisnp.ifrn.br.dominio.Projeto;
@@ -36,6 +39,27 @@ public class DAProjeto {
             }
         }
         return null;
+    }
+    
+    public List<Projeto> getProjetos() {
+        List<Projeto> lista = new ArrayList();
+        if (conn != null) {
+            try {
+                Statement stGetProjeto = conn.createStatement();
+                ResultSet rsGetProjeto = stGetProjeto.executeQuery("select * from projeto");
+                while (rsGetProjeto.next()) {
+                    Projeto projeto = new Projeto();
+                    projeto.setId(rsGetProjeto.getInt("id"));
+                    projeto.setTitulo(rsGetProjeto.getString("titulo"));
+                    projeto.setDescricao(rsGetProjeto.getString("descricao"));
+                    lista.add(projeto);
+                }
+                stGetProjeto.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAProjeto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lista;
     }
 
     public void cadastrarProjeto(Projeto projeto) {
